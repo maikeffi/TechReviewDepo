@@ -36,4 +36,8 @@ public class NewUser {
     public void navigateNewUserUrl(String url){
         this.webDriver.get(url);
     }
+
+    public String getNewUserPageTitle(){
+        return this.webDriver.getTitle();
+    }
 }

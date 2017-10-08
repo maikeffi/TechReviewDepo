@@ -4,11 +4,11 @@ Feature: Create New User
 
   @newuser-positive
   Scenario Outline: Check New User Url
-    Given a new browser instance
-    And navigate to <url>
-    Then the title is <title>
+    Given a new chrome instance
+    And navigate to http://85.93.17.135:9000/user/new
+    Then the title is New User
     Examples:
-      |url |title |
-      |https://www.google.co.in/|New User|
-      |https://www.facebook.com/|FB User|
+      |name |email |password|cnfpassword|
+      |adasd|adasd@mail.com|123|123|
+      |bcd|bcd@| ||
 
