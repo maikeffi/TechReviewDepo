@@ -14,8 +14,7 @@ import static com.maikeffi.deposit.interview.test.runner.PortalTest.manager;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.isOneOf;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 
 
 public class NewUserSteps implements En  {
@@ -127,13 +126,30 @@ public class NewUserSteps implements En  {
                 System.out.println(user.getName());
             });
 
+            assertEquals("Count on user Page",allUserPage.getNumberOfRowCounts(),users.size());
+
 
 
 
 
         });
 
-        Then("^the rest api json should have user details$", () -> {
+        Then("^user data (\\S+) , (\\S+) , (\\S+) should appear on get all user api$", (String name, String email, String pwd) -> {
+
+            User expectedUser = new User();
+            User actualUser = new User();
+            Boolean isMatching = false;
+                 expectedUser.setName(name);
+                 expectedUser.setEmail(email);
+                 expectedUser.setPassword(pwd);
+            List<User> users = manager.getUserClient().findAll();
+            for (User user:users){
+                if (user.equals(expectedUser)){
+                    isMatching = true;
+                    System.out.println(actualUser.getName());
+                }
+            }
+            assertTrue("Check if two objects are equal",isMatching);
 
         });
 

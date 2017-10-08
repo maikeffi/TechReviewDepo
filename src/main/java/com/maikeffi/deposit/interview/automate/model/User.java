@@ -7,6 +7,8 @@ public class User {
     public String email;
     public String password;
 
+
+
     public int getId() {
         return id;
     }
@@ -46,16 +48,16 @@ public class User {
 
         User user = (User) o;
 
-        if (id != user.id) return false;
         if (!name.equals(user.name)) return false;
-        return email.equals(user.email);
+        if (!email.equals(user.email)) return false;
+        return password.equals(user.password);
     }
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + name.hashCode();
+        int result = name.hashCode();
         result = 31 * result + email.hashCode();
+        result = 31 * result + password.hashCode();
         return result;
     }
 }
