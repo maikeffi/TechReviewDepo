@@ -3,13 +3,11 @@ package com.maikeffi.deposit.interview.automate.utils;
 import java.io.FileInputStream;
 import java.util.Properties;
 
-/**
- * Created by Kannan Maikeffi on 07-10-2017.
- */
+
 public class GetItem {
     protected Properties prop = null;
 
-    public String getItemFromProp(String item) throws Exception{
+    public String getItemFromProp(String item) {
         if (prop == null){
             prop = new Properties();
             try {

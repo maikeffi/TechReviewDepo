@@ -1,10 +1,10 @@
 package com.maikeffi.deposit.interview.automate.core;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 
-public class ChromeDriver {
-
-    WebDriver chDriver = new org.openqa.selenium.chrome.ChromeDriver();
+public class CHDriver {
+    WebDriver chDriver = new ChromeDriver();
 
     public void dismiss(){
         chDriver.quit();
@@ -12,8 +12,6 @@ public class ChromeDriver {
 
     public WebDriver getDriver() {
         System.out.println("Initiating Chrome Webdriver");
-        //System.setProperty("webdriver.chrome.driver",manager.getProItem().getItemFromProp("chromePath"));
-
         return  chDriver;
     }
 }

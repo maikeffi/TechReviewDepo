@@ -5,9 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-/**
- * Created by Kannan Maikeffi on 07-10-2017.
- */
+
 public class NewUser {
 
     WebDriver webDriver;
@@ -33,5 +31,9 @@ public class NewUser {
     public NewUser(WebDriver webDriver) {
         this.webDriver = webDriver;
         PageFactory.initElements(webDriver,this);
+    }
+
+    public void navigateNewUserUrl(String url){
+        this.webDriver.get(url);
     }
 }
