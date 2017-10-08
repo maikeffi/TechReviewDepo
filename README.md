@@ -10,6 +10,7 @@ In the PortalTest.java if needed to run only one specific scenario change the ta
 To run all test cases tags = {"@newuser"}  
 
 List of test cases in feature file:
+
 **@deletealluser-clean-data** -- test delete url and sets up test environment for testing 
 
 **@addnewuser-positive** -- positive test scenario to Test creation of user
