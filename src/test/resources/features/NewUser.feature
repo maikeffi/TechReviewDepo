@@ -25,7 +25,7 @@ Feature: Create New User
       |bcd|lkj@mail.com|234|234|
 
   @addnewuser-email-constrain
-  Scenario Outline:
+  Scenario Outline: Check User Name Constrain for duplicate/valid email
     Given a new chrome instance
     And navigate to newUserUrl
     And submit form with values <name> , <email> , <password> and <cnfpassword>
@@ -34,3 +34,16 @@ Feature: Create New User
       |name |email |password|cnfpassword|
       |Mike|adasd@mail.com|123|123|
       |john|bcd@mail.com|234|234|
+      |jose|bcd@mail|234|234|
+
+  @addnewuser-password-constrain
+  Scenario Outline: Check User Name Constrain for password and password repeat must be the same
+    Given a new chrome instance
+    And navigate to newUserUrl
+    And submit form with values <name> , <email> , <password> and <cnfpassword>
+    Then passwords are not the same should appear
+    Examples:
+      |name |email |password|cnfpassword|
+      |Mike|mike@mail.com|123|1234|
+      |john|john@mail.com|234|2345|
+      |jose|jose@mail.com|234|345|

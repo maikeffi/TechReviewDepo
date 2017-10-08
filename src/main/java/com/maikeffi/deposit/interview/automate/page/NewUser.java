@@ -71,4 +71,8 @@ public class NewUser {
     public String getEmailErrorMessage(){
         return this.invalidUserEmailMsg.getText();
     }
+
+    public String getPassworNotSameErrorMessage(){
+        return this.passwordConfirmationError.getText();
+    }
 }

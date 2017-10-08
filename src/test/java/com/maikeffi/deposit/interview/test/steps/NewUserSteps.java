@@ -69,6 +69,19 @@ public class NewUserSteps implements En  {
 
             assertThat(newUser.getEmailErrorMessage(),isOneOf("Must be unique","Required","Invalid email address"));
 
+
+        });
+
+        Then("^passwords are not the same should appear$", () -> {
+            // Write code here that turns the phrase above into concrete actions
+            //Must be unique
+            //Required
+            //Invalid email address
+            // throw new PendingException();
+
+            assertThat(newUser.getPassworNotSameErrorMessage(),isOneOf("passwords are not the same"));
+
+
         });
 
     }
