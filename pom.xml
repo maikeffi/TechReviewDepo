@@ -15,6 +15,7 @@
         <truth.verison>0.36</truth.verison>
         <guava.version>23.0</guava.version>
         <feign.version>9.4.0</feign.version>
+        <lang3.version>3.6</lang3.version>
 
     </properties>
 
@@ -100,7 +101,11 @@
             <version>${feign.version}</version>
         </dependency>
 
-
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${lang3.version}</version>
+        </dependency>
 
     </dependencies>
     <build>

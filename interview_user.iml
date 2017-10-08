@@ -55,5 +55,6 @@
     <orderEntry type="library" name="Maven: io.github.openfeign:feign-gson:9.4.0" level="project" />
     <orderEntry type="library" name="Maven: io.github.openfeign:feign-slf4j:9.4.0" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.13" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.commons:commons-lang3:3.6" level="project" />
   </component>
 </module>

@@ -70,7 +70,7 @@ Feature: Create New User
       |Mike|mike@mail.com|
 
   @addnewuser-name-email-constrain-using-existing-data
-  Scenario: Check User Name/email Constrain for  duplicate name
+  Scenario: Check User Name/email Constrain for  duplicates
     Given a new chrome instance
     And navigate to newUserUrl
     And submit form with values obtained from rest api
