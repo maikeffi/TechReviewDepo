@@ -67,4 +67,8 @@ public class NewUser {
         return this.invalidUserNameMsg.getText();
 
     }
+
+    public String getEmailErrorMessage(){
+        return this.invalidUserEmailMsg.getText();
+    }
 }
