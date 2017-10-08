@@ -5,6 +5,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.List;
+
 
 public class NewUser {
 
@@ -33,6 +35,12 @@ public class NewUser {
 
     @FindBy(xpath = "//button[@type='submit']")
     public WebElement submitButton;
+
+    @FindBy(id = "users")
+    public WebElement usersTable;
+
+    @FindBy(xpath = "//table[@id='users']/tbody/tr")
+    public List<WebElement>  userRows;
 
     public NewUser(WebDriver webDriver) {
         this.webDriver = webDriver;
@@ -74,5 +82,9 @@ public class NewUser {
 
     public String getPassworNotSameErrorMessage(){
         return this.passwordConfirmationError.getText();
+    }
+
+    public int getNumberOfRowCounts(){
+        return this.userRows.size();
     }
 }

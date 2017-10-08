@@ -6,6 +6,7 @@ import com.maikeffi.deposit.interview.automate.page.NewUser;
 import cucumber.api.java8.En;
 
 import static com.maikeffi.deposit.interview.test.runner.PortalTest.manager;
+import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.isOneOf;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
@@ -31,7 +32,7 @@ public class NewUserSteps implements En  {
         Given("^navigate to (\\S+)$", (String urlName) -> {
             // Write code here that turns the phrase above into concrete actions
             //throw new PendingException();
-            String url = manager.getProItem().getItemFromProp("newUserUrl");
+            String url = manager.getProItem().getItemFromProp(urlName);
             System.out.println(url);
             newUser.navigateNewUserUrl(url);
 
@@ -56,7 +57,7 @@ public class NewUserSteps implements En  {
             //Must be unique
             //Required
             assertThat(newUser.getUserNameErrorMessage(),isOneOf("Must be unique","Required"));
-            //manager.kill();
+
             // throw new PendingException();
         });
 
@@ -74,15 +75,25 @@ public class NewUserSteps implements En  {
 
         Then("^passwords are not the same should appear$", () -> {
             // Write code here that turns the phrase above into concrete actions
-            //Must be unique
-            //Required
-            //Invalid email address
+            //passwords are not the same
             // throw new PendingException();
 
             assertThat(newUser.getPassworNotSameErrorMessage(),isOneOf("passwords are not the same"));
 
 
         });
+
+        Then("^added users should be displayed$", () -> {
+            // Write code here that turns the phrase above into concrete actions
+            //passwords are not the same
+            // throw new PendingException();
+
+            assertThat(newUser.getNumberOfRowCounts(),greaterThan(0));
+
+
+        });
+
+
 
     }
 }

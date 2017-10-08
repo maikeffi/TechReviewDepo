@@ -35,6 +35,7 @@ Feature: Create New User
       |Mike|adasd@mail.com|123|123|
       |john|bcd@mail.com|234|234|
       |jose|bcd@mail|234|234|
+      |keffi|@keffi|456 |456|
 
   @addnewuser-password-constrain
   Scenario Outline: Check User Name Constrain for password and password repeat must be the same
@@ -47,3 +48,9 @@ Feature: Create New User
       |Mike|mike@mail.com|123|1234|
       |john|john@mail.com|234|2345|
       |jose|jose@mail.com|234|345|
+
+  @check-all-users
+  Scenario: Check if all users are displayed on UI
+    Given a new chrome instance
+    And navigate to getAllUsersUrl
+    Then added users should be displayed
