@@ -2,10 +2,16 @@ package com.maikeffi.deposit.interview.test.steps;
 
 import com.maikeffi.deposit.interview.automate.core.CHDriver;
 import com.maikeffi.deposit.interview.automate.manager.Manager;
+import com.maikeffi.deposit.interview.automate.model.User;
+import com.maikeffi.deposit.interview.automate.page.AllUserPage;
 import com.maikeffi.deposit.interview.automate.page.NewUser;
+import com.maikeffi.deposit.interview.automate.utils.UserClient;
 import cucumber.api.java8.En;
 
+import java.util.List;
+
 import static com.maikeffi.deposit.interview.test.runner.PortalTest.manager;
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.isOneOf;
 import static org.junit.Assert.assertEquals;
@@ -18,20 +24,27 @@ public class NewUserSteps implements En  {
 
 
     NewUser newUser;
+    AllUserPage allUserPage;
+
 
 
     public NewUserSteps() {
 
         Given("^a new (\\S+) instance$", (String browser) -> {
-            // Write code here that turns the phrase above into concrete actions
-            //throw new PendingException();
-            if (browser.equals("chrome")){newUser = new NewUser(manager.getCrDriver().getDriver());}
+
+            if (browser.equals("chrome")){
+                newUser = new NewUser(manager.getCrDriver().getDriver());
+                allUserPage = new AllUserPage(manager.getCrDriver().getDriver());
+            }
+
+        });
+
+        When("^we delete all user entries$", ()->{
 
         });
 
         Given("^navigate to (\\S+)$", (String urlName) -> {
-            // Write code here that turns the phrase above into concrete actions
-            //throw new PendingException();
+
             String url = manager.getProItem().getItemFromProp(urlName);
             System.out.println(url);
             newUser.navigateNewUserUrl(url);
@@ -39,41 +52,44 @@ public class NewUserSteps implements En  {
         });
 
         Given("^submit form with values (\\S+) , (\\S+) , (\\S+) and (\\S+)$", (String name, String email, String pwd , String cnfPwd) -> {
-            // Write code here that turns the phrase above into concrete actions
-           // throw new PendingException();
+
             newUser.setValuesOnPage(name,email,pwd,cnfPwd);
             newUser.clickSubmitButton();
         });
 
         Given("^submit form with values (\\S+) and (\\S+)$", (String name, String email) -> {
-            // Write code here that turns the phrase above into concrete actions
-            // throw new PendingException();
+
             newUser.setValuesOnPage(name,email);
             newUser.clickSubmitButton();
         });
 
-        Then("^page changes to (.*)$", (String title) -> {
-            // Write code here that turns the phrase above into concrete actions
-            //System.out.println(title);
-            assertEquals("Title of page",title,newUser.getNewUserPageTitle());
-            //manager.kill();
-           // throw new PendingException();
+        Given("^when delete rest api is invoked$", () -> {
+            manager.getUserClient().deleteAll();
         });
+
+        Then("^no user is displayed$", () -> {
+            assertEquals("No User Test",allUserPage.getNoUserText(),"No Users");
+        });
+
+
+
+        Then("^page changes to (.*)$", (String title) -> {
+
+            assertEquals("Title of page",title,newUser.getNewUserPageTitle());
+
+        });
+
+
+
         Then("^user name error message should appear$", () -> {
-            // Write code here that turns the phrase above into concrete actions
-            //Must be unique
-            //Required
+
             assertThat(newUser.getUserNameErrorMessage(),isOneOf("Must be unique","Required"));
 
-            // throw new PendingException();
+
         });
 
         Then("^email error message should appear$", () -> {
-            // Write code here that turns the phrase above into concrete actions
-            //Must be unique
-            //Required
-            //Invalid email address
-            // throw new PendingException();
+
 
             assertThat(newUser.getEmailErrorMessage(),isOneOf("Must be unique","Required","Invalid email address"));
 
@@ -81,9 +97,7 @@ public class NewUserSteps implements En  {
         });
 
         Then("^passwords are not the same should appear$", () -> {
-            // Write code here that turns the phrase above into concrete actions
-            //passwords are not the same
-            // throw new PendingException();
+
 
             assertThat(newUser.getPassworNotSameErrorMessage(),isOneOf("passwords are not the same"));
 
@@ -91,9 +105,7 @@ public class NewUserSteps implements En  {
         });
 
         Then("^password is required message should appear$", () -> {
-            // Write code here that turns the phrase above into concrete actions
-            //passwords are not the same
-            // throw new PendingException();
+
 
             assertThat(newUser.getPasswordRequiredErrorMessage(),isOneOf("Required"));
 
@@ -101,12 +113,19 @@ public class NewUserSteps implements En  {
         });
 
         Then("^added users should be displayed$", () -> {
-            // Write code here that turns the phrase above into concrete actions
-            //passwords are not the same
-            // throw new PendingException();
 
-            assertThat(newUser.getNumberOfRowCounts(),greaterThan(0));
+            List<User> users = manager.getUserClient().findAll();
+            users.forEach(user -> {
+                System.out.println(user.getName());
+            });
 
+
+
+
+
+        });
+
+        Then("^the rest api json should have user details$", () -> {
 
         });
 

@@ -39,11 +39,7 @@ public class NewUser {
     @FindBy(xpath = "//button[@type='submit']")
     public WebElement submitButton;
 
-    @FindBy(id = "users")
-    public WebElement usersTable;
 
-    @FindBy(xpath = "//table[@id='users']/tbody/tr")
-    public List<WebElement>  userRows;
 
     public NewUser(WebDriver webDriver) {
         this.webDriver = webDriver;
@@ -98,7 +94,5 @@ public class NewUser {
         return this.passwordRequiredError.getText();
     }
 
-    public int getNumberOfRowCounts(){
-        return this.userRows.size();
-    }
+
 }

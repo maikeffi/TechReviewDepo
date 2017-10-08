@@ -1,6 +1,13 @@
 @newuser
 Feature: Create New User
-  Verify Create User Form Constrains
+  Verify Create User Form and check Constrains as given below
+
+  @deletealluser-clean-data
+  Scenario: Check Delete All Url
+    Given when delete rest api is invoked
+    And a new chrome instance
+    And navigate to getAllUsersUrl
+    Then no user is displayed
 
   @addnewuser-positive
   Scenario Outline: Check New User Url
@@ -8,10 +15,12 @@ Feature: Create New User
     And navigate to newUserUrl
     And submit form with values <name> , <email> , <password> and <cnfpassword>
     Then page changes to All User
+    Then the rest api json should have user details
     Examples:
       |name |email |password|cnfpassword|
       |adasd|adasd@mail.com|123|123|
       |bcd|bcd@mail.com|234|234|
+
 
   @addnewuser-name-constrain
   Scenario Outline: Check User Name Constrain for  duplicate name
