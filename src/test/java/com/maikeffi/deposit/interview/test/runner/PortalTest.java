@@ -14,7 +14,7 @@ import org.junit.runner.RunWith;
 @CucumberOptions(features = {"src/test/resources/features/"},
         format = {"pretty", "html:target/reports/cucumber/html", "json:target/reports/cucumber/all_tests.json", "junit:target/reports/junit/all_tests.xml"},
         glue = {"com.maikeffi.deposit.interview.test.steps"},
-        tags = {"@deletealluser-clean-data"})
+        tags = {"@newuser"})
 
 public class PortalTest {
 

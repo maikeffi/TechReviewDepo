@@ -67,6 +67,14 @@ public class NewUserSteps implements En  {
             manager.getUserClient().deleteAll();
         });
 
+        Given("^submit form with values obtained from rest api$", () -> {
+            List<User> users =  manager.getUserClient().findAll();
+            User user = users.get(0);
+            newUser.setValuesOnPage(user.getName(),user.getEmail(),user.getPassword(),user.getPassword());
+            newUser.clickSubmitButton();
+
+        });
+
         Then("^no user is displayed$", () -> {
             assertEquals("No User Test",allUserPage.getNoUserText(),"No Users");
         });

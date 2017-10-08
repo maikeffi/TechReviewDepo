@@ -22,6 +22,7 @@ Feature: Create New User
       |bcd|bcd@mail.com|234|234|
 
 
+
   @addnewuser-name-constrain
   Scenario Outline: Check User Name Constrain for  duplicate name
     Given a new chrome instance
@@ -68,6 +69,13 @@ Feature: Create New User
       |name |email |
       |Mike|mike@mail.com|
 
+  @addnewuser-name-email-constrain-using-existing-data
+  Scenario: Check User Name/email Constrain for  duplicate name
+    Given a new chrome instance
+    And navigate to newUserUrl
+    And submit form with values obtained from rest api
+    Then user name error message should appear
+    Then email error message should appear
 
   @check-all-users
   Scenario: Check if all users are displayed on UI
