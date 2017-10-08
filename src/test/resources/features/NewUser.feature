@@ -15,7 +15,7 @@ Feature: Create New User
     And navigate to newUserUrl
     And submit form with values <name> , <email> , <password> and <cnfpassword>
     Then page changes to All User
-    Then the rest api json should have user details
+    Then user data <name> , <email> , <password> should appear on get all user api
     Examples:
       |name |email |password|cnfpassword|
       |adasd|adasd@mail.com|123|123|
