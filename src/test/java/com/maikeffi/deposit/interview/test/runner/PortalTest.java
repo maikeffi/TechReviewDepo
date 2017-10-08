@@ -15,7 +15,7 @@ import org.junit.runner.RunWith;
 @CucumberOptions(features = {"src/test/resources/features/"},
         format = {"pretty", "html:target/reports/cucumber/html", "json:target/reports/cucumber/all_tests.json", "junit:target/reports/junit/all_tests.xml"},
         glue = {"com.maikeffi.deposit.interview.test.steps"},
-        tags = {"@newuser"})
+        tags = {"@NewUser-004"})
 
 public class PortalTest {
 
@@ -24,6 +24,7 @@ public class PortalTest {
     @BeforeClass
     public static void setUp(){
         String browser = manager.getProItem().getItemFromProp("webBrowser");
+        manager.getUserClient().deleteAll();
         if (browser.equals("chrome") && SystemUtils.IS_OS_WINDOWS){
             System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir")+manager.getProItem().getItemFromProp("chromeDriverPathWindows"));
         }else if (browser.equals("chrome") && SystemUtils.IS_OS_LINUX) {

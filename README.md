@@ -11,21 +11,16 @@ To run all test cases tags = {"@newuser"}
 
 List of test cases in feature file:
 
-**@deletealluser-clean-data** -- test delete url and sets up test environment for testing 
+**@NewUser-001** --  Test New User url with Valid values 
 
-**@addnewuser-positive** -- positive test scenario to Test creation of user
+**@NewUser-002** -- Test New User url with Duplicate User Name and email
 
-**@addnewuser-name-constrain** -- test scenario to check constrains on user name (Must be unique & Required)
+**@NewUser-003** -- Test New User url with invalid email
 
-**@addnewuser-email-constrain** -- test scenario to check constrains on user email (Must be unique & Required & Invalid email address)
+**@NewUser-004** -- Test New User URl Password confirmation
 
-**@addnewuser-password-constrain** -- test scenario to check constrains on password confirmation (passwords are not the same)
-   
-**@addnewuser-password-constrain-required** -- test scenario on constrains on password (Required)
+*@NewUser-005** -- Test New User URl for compulsory Password.
 
-**@addnewuser-name-email-constrain-using-existing-data** -- Uses rest api to fetch data from environment and checks for   constrains on user name & email (Must be unique & Required)
-
- **@check-all-users**    -- uses rest api to check all users are listed on all users page.
 
 
  

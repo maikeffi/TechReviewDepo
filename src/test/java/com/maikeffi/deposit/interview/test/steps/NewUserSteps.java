@@ -1,18 +1,14 @@
 package com.maikeffi.deposit.interview.test.steps;
 
-import com.maikeffi.deposit.interview.automate.core.CHDriver;
-import com.maikeffi.deposit.interview.automate.manager.Manager;
 import com.maikeffi.deposit.interview.automate.model.User;
+import com.maikeffi.deposit.interview.automate.model.UserForm;
 import com.maikeffi.deposit.interview.automate.page.AllUserPage;
-import com.maikeffi.deposit.interview.automate.page.NewUser;
-import com.maikeffi.deposit.interview.automate.utils.UserClient;
+import com.maikeffi.deposit.interview.automate.page.NewUserPage;
 import cucumber.api.java8.En;
 
 import java.util.List;
 
 import static com.maikeffi.deposit.interview.test.runner.PortalTest.manager;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.isOneOf;
 import static org.junit.Assert.*;
 
@@ -22,126 +18,53 @@ public class NewUserSteps implements En  {
 
 
 
-    NewUser newUser;
-    AllUserPage allUserPage;
+    private NewUserPage newUserPage;
+    private AllUserPage allUserPage;
 
 
 
     public NewUserSteps() {
 
-        Given("^a new (\\S+) instance$", (String browser) -> {
+        Given("^I open (\\S+) browser$", (String browser) -> {
 
             if (browser.equals("chrome")){
-                newUser = new NewUser(manager.getCrDriver().getDriver());
+                newUserPage = new NewUserPage(manager.getCrDriver().getDriver());
                 allUserPage = new AllUserPage(manager.getCrDriver().getDriver());
             }
 
         });
 
-        When("^we delete all user entries$", ()->{
-
-        });
-
-        Given("^navigate to (\\S+)$", (String urlName) -> {
-
-            String url = manager.getProItem().getItemFromProp(urlName);
-            System.out.println(url);
-            newUser.navigateNewUserUrl(url);
-
-        });
-
-        Given("^submit form with values (\\S+) , (\\S+) , (\\S+) and (\\S+)$", (String name, String email, String pwd , String cnfPwd) -> {
-
-            newUser.setValuesOnPage(name,email,pwd,cnfPwd);
-            newUser.clickSubmitButton();
-        });
-
-        Given("^submit form with values (\\S+) and (\\S+)$", (String name, String email) -> {
-
-            newUser.setValuesOnPage(name,email);
-            newUser.clickSubmitButton();
-        });
-
-        Given("^when delete rest api is invoked$", () -> {
-            manager.getUserClient().deleteAll();
-        });
-
-        Given("^submit form with values obtained from rest api$", () -> {
-            List<User> users =  manager.getUserClient().findAll();
-            User user = users.get(0);
-            newUser.setValuesOnPage(user.getName(),user.getEmail(),user.getPassword(),user.getPassword());
-            newUser.clickSubmitButton();
-
-        });
-
-        Then("^no user is displayed$", () -> {
-            assertEquals("No User Test",allUserPage.getNoUserText(),"No Users");
+        When("^I enter Url for New User in the browser$", () -> {
+            String url = manager.getProItem().getItemFromProp("newUserUrl");
+            newUserPage.navigateNewUserUrl(url);
         });
 
 
 
-        Then("^page changes to (.*)$", (String title) -> {
-
-            assertEquals("Title of page",title,newUser.getNewUserPageTitle());
-
+        When("^I enter values (\\S+),(\\S+),(\\S+) and (\\S+)$", (String name,String email,String pwd, String cnfPwd) -> {
+            UserForm userForm = new UserForm(name,email,pwd,cnfPwd);
+            newUserPage.setValuesOnPage(userForm);
         });
 
-
-
-        Then("^user name error message should appear$", () -> {
-
-            assertThat(newUser.getUserNameErrorMessage(),isOneOf("Must be unique","Required"));
-
-
+        When("^I enter values (\\S+),(\\S+)$", (String name,String email) -> {
+            newUserPage.setValuesOnPage(name,email);
         });
 
-        Then("^email error message should appear$", () -> {
-
-
-            assertThat(newUser.getEmailErrorMessage(),isOneOf("Must be unique","Required","Invalid email address"));
-
-
+        When("^I submit the form$", () -> {
+            newUserPage.clickSubmitButton();
         });
 
-        Then("^passwords are not the same should appear$", () -> {
-
-
-            assertThat(newUser.getPassworNotSameErrorMessage(),isOneOf("passwords are not the same"));
-
-
+        Then("^All Users Page Should Open$", () -> {
+            assertEquals("Title of page","All User", allUserPage.getNewUserPageTitle());
         });
 
-        Then("^password is required message should appear$", () -> {
-
-
-            assertThat(newUser.getPasswordRequiredErrorMessage(),isOneOf("Required"));
-
-
-        });
-
-        Then("^added users should be displayed$", () -> {
-
-            List<User> users = manager.getUserClient().findAll();
-            users.forEach(user -> {
-                System.out.println(user.getName());
-            });
-
-            assertEquals("Count on user Page",allUserPage.getNumberOfRowCounts(),users.size());
-
-
-
-
-
-        });
-
-        Then("^user data (\\S+) , (\\S+) , (\\S+) should appear on get all user api$", (String name, String email, String pwd) -> {
-
+        Then("^user data (\\S+),(\\S+),(\\S+) should appear on get all user api$", (String  name,String email , String pwd) -> {
             User expectedUser = new User();
             User actualUser = new User();
             Boolean isMatching = false;
-                 expectedUser.setName(name);
-                 expectedUser.setEmail(email);
-                 expectedUser.setPassword(pwd);
+            expectedUser.setName(name);
+            expectedUser.setEmail(email);
+            expectedUser.setPassword(pwd);
             List<User> users = manager.getUserClient().findAll();
             for (User user:users){
                 if (user.equals(expectedUser)){
@@ -150,8 +73,22 @@ public class NewUserSteps implements En  {
                 }
             }
             assertTrue("Check if two objects are equal",isMatching);
-
         });
+
+        Then("^I Should get (.*) error message (.*)$", (String type ,String expErrorMessage) -> {
+            String errorMessage = "";
+            if (type.equals("name")){
+                errorMessage = newUserPage.getUserNameErrorMessage();
+            } else if (type.equals("email")){
+                errorMessage = newUserPage.getEmailErrorMessage();
+            } else if (type.equals("password")){
+                errorMessage = newUserPage.getPassworNotSameErrorMessage();
+            }
+            System.out.println(type +"|"+ expErrorMessage +"|"+errorMessage);
+            assertEquals("Error Message ",errorMessage, expErrorMessage);
+        });
+
+
 
 
 
