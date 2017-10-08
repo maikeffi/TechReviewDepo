@@ -22,11 +22,17 @@ public class NewUser {
     @FindBy(id = "confirmationPassword")
     public WebElement userPasswordConfirmation;
 
+    @FindBy(id = "user.name.error")
+    public WebElement invalidUserNameMsg;
+
     @FindBy(id = "user.email.error")
     public WebElement invalidUserEmailMsg;
 
     @FindBy(id = "user.confirmationPassword.error")
     public WebElement passwordConfirmationError;
+
+    @FindBy(xpath = "//button[@type='submit']")
+    public WebElement submitButton;
 
     public NewUser(WebDriver webDriver) {
         this.webDriver = webDriver;
@@ -39,5 +45,26 @@ public class NewUser {
 
     public String getNewUserPageTitle(){
         return this.webDriver.getTitle();
+    }
+
+    public void setValuesOnPage(String name, String email, String pwd , String cnfPwd){
+        userName.clear();
+        userName.sendKeys(name);
+        userEmail.clear();
+        userEmail.sendKeys(email);
+        userPassword.clear();
+        userPassword.sendKeys(pwd);
+        userPasswordConfirmation.clear();
+        userPasswordConfirmation.sendKeys(cnfPwd);
+
+    }
+
+    public void clickSubmitButton(){
+        submitButton.click();
+    }
+
+    public String getUserNameErrorMessage(){
+        return this.invalidUserNameMsg.getText();
+
     }
 }

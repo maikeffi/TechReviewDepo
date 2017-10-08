@@ -26,22 +26,35 @@ public class NewUserSteps implements En  {
 
         });
 
-        Given("^navigate to (\\S+)$", (String url) -> {
+        Given("^navigate to (\\S+)$", (String urlName) -> {
             // Write code here that turns the phrase above into concrete actions
             //throw new PendingException();
+            String url = manager.getProItem().getItemFromProp("newUserUrl");
             System.out.println(url);
             newUser.navigateNewUserUrl(url);
 
         });
 
-        Then("^the title is (\\S+)$", (String title) -> {
+        Given("^submit for with values (\\S+) , (\\S+) , (\\S+) and (\\S+)$", (String name, String email, String pwd , String cnfPwd) -> {
+            // Write code here that turns the phrase above into concrete actions
+           // throw new PendingException();
+            newUser.setValuesOnPage(name,email,pwd,cnfPwd);
+            newUser.clickSubmitButton();
+        });
+
+        Then("^page changes to (.*)$", (String title) -> {
             // Write code here that turns the phrase above into concrete actions
             System.out.println(title);
             assertEquals("Title of page",title,newUser.getNewUserPageTitle());
             //manager.kill();
            // throw new PendingException();
         });
-
+        Then("^user name error message should appear$", () -> {
+            // Write code here that turns the phrase above into concrete actions
+            //Must be unique
+            //manager.kill();
+            // throw new PendingException();
+        });
 
     }
 }
