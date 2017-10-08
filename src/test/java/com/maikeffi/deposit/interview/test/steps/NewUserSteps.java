@@ -45,6 +45,13 @@ public class NewUserSteps implements En  {
             newUser.clickSubmitButton();
         });
 
+        Given("^submit form with values (\\S+) and (\\S+)$", (String name, String email) -> {
+            // Write code here that turns the phrase above into concrete actions
+            // throw new PendingException();
+            newUser.setValuesOnPage(name,email);
+            newUser.clickSubmitButton();
+        });
+
         Then("^page changes to (.*)$", (String title) -> {
             // Write code here that turns the phrase above into concrete actions
             //System.out.println(title);
@@ -79,6 +86,16 @@ public class NewUserSteps implements En  {
             // throw new PendingException();
 
             assertThat(newUser.getPassworNotSameErrorMessage(),isOneOf("passwords are not the same"));
+
+
+        });
+
+        Then("^password is required message should appear$", () -> {
+            // Write code here that turns the phrase above into concrete actions
+            //passwords are not the same
+            // throw new PendingException();
+
+            assertThat(newUser.getPasswordRequiredErrorMessage(),isOneOf("Required"));
 
 
         });

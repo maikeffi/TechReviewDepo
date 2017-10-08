@@ -38,7 +38,7 @@ Feature: Create New User
       |keffi|@keffi|456 |456|
 
   @addnewuser-password-constrain
-  Scenario Outline: Check User Name Constrain for password and password repeat must be the same
+  Scenario Outline: Check User Name Constrain for  password repeat must be the same
     Given a new chrome instance
     And navigate to newUserUrl
     And submit form with values <name> , <email> , <password> and <cnfpassword>
@@ -48,6 +48,17 @@ Feature: Create New User
       |Mike|mike@mail.com|123|1234|
       |john|john@mail.com|234|2345|
       |jose|jose@mail.com|234|345|
+
+  @addnewuser-password-constrain-required
+  Scenario Outline: Check User Name Constrain for  password repeat must be the same
+    Given a new chrome instance
+    And navigate to newUserUrl
+    And submit form with values <name> and <email>
+    Then password is required message should appear
+    Examples:
+      |name |email |
+      |Mike|mike@mail.com|
+
 
   @check-all-users
   Scenario: Check if all users are displayed on UI

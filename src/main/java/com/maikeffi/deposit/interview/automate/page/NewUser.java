@@ -30,6 +30,9 @@ public class NewUser {
     @FindBy(id = "user.email.error")
     public WebElement invalidUserEmailMsg;
 
+    @FindBy(id = "user.password.error")
+    public WebElement passwordRequiredError;
+
     @FindBy(id = "user.confirmationPassword.error")
     public WebElement passwordConfirmationError;
 
@@ -67,6 +70,13 @@ public class NewUser {
 
     }
 
+    public void setValuesOnPage(String name,String email){
+        userName.clear();
+        userName.sendKeys(name);
+        userEmail.clear();
+        userEmail.sendKeys(email);
+    }
+
     public void clickSubmitButton(){
         submitButton.click();
     }
@@ -82,6 +92,10 @@ public class NewUser {
 
     public String getPassworNotSameErrorMessage(){
         return this.passwordConfirmationError.getText();
+    }
+
+    public String getPasswordRequiredErrorMessage(){
+        return this.passwordRequiredError.getText();
     }
 
     public int getNumberOfRowCounts(){
