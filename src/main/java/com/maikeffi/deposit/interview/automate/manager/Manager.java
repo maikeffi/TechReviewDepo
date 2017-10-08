@@ -13,6 +13,7 @@ public class Manager {
 
 
 
+
     public static Manager getManager() {
         if (manager == null){
             manager = new Manager();
@@ -43,6 +44,7 @@ public class Manager {
 
         return proItem;
     }
+
 
     public void kill(){
         if (chDriver !=null){
