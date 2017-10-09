@@ -1,5 +1,6 @@
 package com.maikeffi.deposit.interview.automate.page;
 
+import com.maikeffi.deposit.interview.automate.model.UserForm;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -8,7 +9,7 @@ import org.openqa.selenium.support.PageFactory;
 import java.util.List;
 
 
-public class NewUser {
+public class NewUserPage {
 
     WebDriver webDriver;
 
@@ -41,7 +42,7 @@ public class NewUser {
 
 
 
-    public NewUser(WebDriver webDriver) {
+    public NewUserPage(WebDriver webDriver) {
         this.webDriver = webDriver;
         PageFactory.initElements(webDriver,this);
     }
@@ -54,23 +55,27 @@ public class NewUser {
         return this.webDriver.getTitle();
     }
 
-    public void setValuesOnPage(String name, String email, String pwd , String cnfPwd){
-        userName.clear();
-        userName.sendKeys(name);
-        userEmail.clear();
-        userEmail.sendKeys(email);
-        userPassword.clear();
-        userPassword.sendKeys(pwd);
-        userPasswordConfirmation.clear();
-        userPasswordConfirmation.sendKeys(cnfPwd);
-
+    public void setValuesOnPage(UserForm userForm){
+        enterValuesInTextBox(userName,userForm.getName());
+        enterValuesInTextBox(userEmail,userForm.getEmail());
+        enterValuesInTextBox(userPassword,userForm.getPassword());
+        enterValuesInTextBox(userPasswordConfirmation,userForm.getCnfPassword());
     }
 
-    public void setValuesOnPage(String name,String email){
-        userName.clear();
-        userName.sendKeys(name);
-        userEmail.clear();
-        userEmail.sendKeys(email);
+    public void setValuesOnExceptPassword(String name,String email){
+        enterValuesInTextBox(userName,name);
+        enterValuesInTextBox(userEmail,email);
+    }
+    public void setValuesOnExceptName(String email,String pwd){
+        enterValuesInTextBox(userEmail,email);
+        enterValuesInTextBox(userPassword,pwd);
+        enterValuesInTextBox(userPasswordConfirmation,pwd);
+    }
+
+    public void setValuesOnExceptEmail(String name,String pwd){
+        enterValuesInTextBox(userName,name);
+        enterValuesInTextBox(userPassword,pwd);
+        enterValuesInTextBox(userPasswordConfirmation,pwd);
     }
 
     public void clickSubmitButton(){
@@ -92,6 +97,15 @@ public class NewUser {
 
     public String getPasswordRequiredErrorMessage(){
         return this.passwordRequiredError.getText();
+    }
+
+    private void enterValuesInTextBox(WebElement element,String value){
+        if(value!=null){
+            element.clear();
+            element.sendKeys(value);
+        }
+
+
     }
 
 

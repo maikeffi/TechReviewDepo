@@ -7,25 +7,27 @@ Use git clone https://github.com/maikeffi/TechReviewDepo.git to clone repo
 cd into cloned folder and from command line type mvn test .
 
 In the PortalTest.java if needed to run only one specific scenario change the tags cucumber option
-To run all test cases tags = {"@newuser"}  
 
-List of test cases in feature file:
+To run all test cases tags = {"@NewUser"} 
 
-**@deletealluser-clean-data** -- test delete url and sets up test environment for testing 
+To run two specific test give tags as comma separated  value , eg: {"@NewUser-006,@NewUser-007"} 
 
-**@addnewuser-positive** -- positive test scenario to Test creation of user
+**_List of test cases in feature file:_**
 
-**@addnewuser-name-constrain** -- test scenario to check constrains on user name (Must be unique & Required)
+**@NewUser-001** --  Test New User url with Valid values 
 
-**@addnewuser-email-constrain** -- test scenario to check constrains on user email (Must be unique & Required & Invalid email address)
+**@NewUser-002** -- Test New User url with Duplicate User Name and email
 
-**@addnewuser-password-constrain** -- test scenario to check constrains on password confirmation (passwords are not the same)
-   
-**@addnewuser-password-constrain-required** -- test scenario on constrains on password (Required)
+**@NewUser-003** -- Test New User url with invalid email
 
-**@addnewuser-name-email-constrain-using-existing-data** -- Uses rest api to fetch data from environment and checks for   constrains on user name & email (Must be unique & Required)
+**@NewUser-004** -- Test New User URl Password confirmation
 
- **@check-all-users**    -- uses rest api to check all users are listed on all users page.
+*@NewUser-005** -- Test New User URl for compulsory Password.
+
+*@NewUser-006** -- Test New User Url for Compulsory user Name
+
+*@NewUser-007** -- Test New User Url for Compulsory user email
+
 
 
  

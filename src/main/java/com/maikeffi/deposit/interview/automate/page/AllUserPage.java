@@ -25,6 +25,9 @@ public class AllUserPage {
         this.webDriver = webDriver;
         PageFactory.initElements(webDriver,this);
     }
+    public String getNewUserPageTitle(){
+        return this.webDriver.getTitle();
+    }
     public int getNumberOfRowCounts(){
         return this.userRows.size();
     }

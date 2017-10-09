@@ -18,10 +18,6 @@ public class Manager {
     private GetItem proItem;
     private UserClient userClient;
 
-
-
-
-
     public static Manager getManager() {
         if (manager == null){
             manager = new Manager();
