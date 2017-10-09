@@ -22,11 +22,11 @@ To run two specific test give tags as comma separated  value , eg: {"@NewUser-00
 
 **@NewUser-004** -- Test New User URl Password confirmation
 
-*@NewUser-005** -- Test New User URl for compulsory Password.
+**@NewUser-005** -- Test New User URl for compulsory Password.
 
-*@NewUser-006** -- Test New User Url for Compulsory user Name
+**@NewUser-006** -- Test New User Url for Compulsory user Name
 
-*@NewUser-007** -- Test New User Url for Compulsory user email
+**@NewUser-007** -- Test New User Url for Compulsory user email
 
 
 

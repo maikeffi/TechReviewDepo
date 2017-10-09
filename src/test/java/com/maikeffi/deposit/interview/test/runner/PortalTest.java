@@ -22,7 +22,7 @@ public class PortalTest {
     @BeforeClass
     public static void setUp(){
         String browser = manager.getProItem().getItemFromProp("webBrowser");
-
+        manager.getUserClient().deleteAll();
         if (browser.equals("chrome") && SystemUtils.IS_OS_WINDOWS){
             System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir")+manager.getProItem().getItemFromProp("chromeDriverPathWindows"));
         }else if (browser.equals("chrome") && SystemUtils.IS_OS_LINUX) {
