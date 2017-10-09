@@ -4,6 +4,7 @@ import com.maikeffi.deposit.interview.automate.model.User;
 import com.maikeffi.deposit.interview.automate.model.UserForm;
 import com.maikeffi.deposit.interview.automate.page.AllUserPage;
 import com.maikeffi.deposit.interview.automate.page.NewUserPage;
+import cucumber.api.java.Before;
 import cucumber.api.java8.En;
 
 import java.util.List;
@@ -22,8 +23,14 @@ public class NewUserSteps implements En  {
     private AllUserPage allUserPage;
 
 
+    @Before
+    public void beforeScenario(){
+        manager.getUserClient().deleteAll();
+    }
 
     public NewUserSteps() {
+
+
 
         Given("^I open (\\S+) browser$", (String browser) -> {
 
@@ -32,6 +39,10 @@ public class NewUserSteps implements En  {
                 allUserPage = new AllUserPage(manager.getCrDriver().getDriver());
             }
 
+        });
+
+        When("^I Clean up Test Data$", () -> {
+            manager.getUserClient().deleteAll();
         });
 
         When("^I enter Url for New User in the browser$", () -> {
@@ -46,8 +57,14 @@ public class NewUserSteps implements En  {
             newUserPage.setValuesOnPage(userForm);
         });
 
-        When("^I enter values (\\S+),(\\S+)$", (String name,String email) -> {
-            newUserPage.setValuesOnPage(name,email);
+        When("^I enter values (\\S+),(\\S+) except (\\S+)", (String one,String two,String type) -> {
+            if (type.equals("password")){
+                newUserPage.setValuesOnExceptPassword(one,two);
+            }else if (type.equals("name")){
+                newUserPage.setValuesOnExceptName(one,two);
+            }else if (type.equals("email")){
+                newUserPage.setValuesOnExceptEmail(one,two);
+            }
         });
 
         When("^I submit the form$", () -> {
@@ -81,10 +98,12 @@ public class NewUserSteps implements En  {
                 errorMessage = newUserPage.getUserNameErrorMessage();
             } else if (type.equals("email")){
                 errorMessage = newUserPage.getEmailErrorMessage();
-            } else if (type.equals("password")){
+            } else if (type.equals("password confirmation")){
                 errorMessage = newUserPage.getPassworNotSameErrorMessage();
+            }else if (type.equals("password")){
+                errorMessage = newUserPage.getPasswordRequiredErrorMessage();
             }
-            System.out.println(type +"|"+ expErrorMessage +"|"+errorMessage);
+            //System.out.println(type +"|"+ expErrorMessage +"|"+errorMessage);
             assertEquals("Error Message ",errorMessage, expErrorMessage);
         });
 

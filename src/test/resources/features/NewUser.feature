@@ -49,7 +49,7 @@ Feature: Create New User
     When I enter Url for New User in the browser
     And I enter values <name>,<email>,<password> and <cnfpassword>
     And I submit the form
-    Then I Should get password error message passwords are not the same
+    Then I Should get password confirmation error message passwords are not the same
     Examples:
       |name |email |password|cnfpassword|
       |adasd|adasd@mail.com|123|12345|
@@ -58,11 +58,37 @@ Feature: Create New User
   @NewUser-005
   Scenario Outline: Test New User URl for compulsory Password
     When I enter Url for New User in the browser
-    And I enter values <name>,<email>
+    And I enter values <name>,<email> except password
     And I submit the form
     Then I Should get password error message Required
     Examples:
       |name |email |
       |adasd|adasd@mail.com|
       |keffi|bcd@mail.com|
+
+  @NewUser-006
+  Scenario Outline: Test New User Url for Compulsory user Name
+    When I enter Url for New User in the browser
+    And I enter values <email>,<password> except name
+    And I submit the form
+    Then I Should get name error message Required
+
+    Examples:
+      |email |password |
+      |adasd@mail.com|123|
+      |adasd@mail.com|123|
+
+  @NewUser-007
+  Scenario Outline: Test New User Url for Compulsory user email
+    When I enter Url for New User in the browser
+    And I enter values <name>,<password> except email
+    And I submit the form
+    Then I Should get email error message Required
+
+    Examples:
+      |name |password |
+      |adasd|adasd@mail.com|
+      |keffi|bcd@mail.com|
+
+
 

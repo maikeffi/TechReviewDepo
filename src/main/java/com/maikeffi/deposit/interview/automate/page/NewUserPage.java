@@ -62,9 +62,20 @@ public class NewUserPage {
         enterValuesInTextBox(userPasswordConfirmation,userForm.getCnfPassword());
     }
 
-    public void setValuesOnPage(String name,String email){
+    public void setValuesOnExceptPassword(String name,String email){
         enterValuesInTextBox(userName,name);
         enterValuesInTextBox(userEmail,email);
+    }
+    public void setValuesOnExceptName(String email,String pwd){
+        enterValuesInTextBox(userEmail,email);
+        enterValuesInTextBox(userPassword,pwd);
+        enterValuesInTextBox(userPasswordConfirmation,pwd);
+    }
+
+    public void setValuesOnExceptEmail(String name,String pwd){
+        enterValuesInTextBox(userName,name);
+        enterValuesInTextBox(userPassword,pwd);
+        enterValuesInTextBox(userPasswordConfirmation,pwd);
     }
 
     public void clickSubmitButton(){

@@ -7,9 +7,12 @@ Use git clone https://github.com/maikeffi/TechReviewDepo.git to clone repo
 cd into cloned folder and from command line type mvn test .
 
 In the PortalTest.java if needed to run only one specific scenario change the tags cucumber option
-To run all test cases tags = {"@newuser"}  
 
-List of test cases in feature file:
+To run all test cases tags = {"@NewUser"} 
+
+To run two specific test give tags as comma separated  value , eg: {"@NewUser-006,@NewUser-007"} 
+
+**_List of test cases in feature file:_**
 
 **@NewUser-001** --  Test New User url with Valid values 
 
@@ -20,6 +23,10 @@ List of test cases in feature file:
 **@NewUser-004** -- Test New User URl Password confirmation
 
 *@NewUser-005** -- Test New User URl for compulsory Password.
+
+*@NewUser-006** -- Test New User Url for Compulsory user Name
+
+*@NewUser-007** -- Test New User Url for Compulsory user email
 
 
 
