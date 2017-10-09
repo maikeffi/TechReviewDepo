@@ -62,21 +62,6 @@ public class NewUserPage {
         enterValuesInTextBox(userPasswordConfirmation,userForm.getCnfPassword());
     }
 
-    public void setValuesOnExceptPassword(String name,String email){
-        enterValuesInTextBox(userName,name);
-        enterValuesInTextBox(userEmail,email);
-    }
-    public void setValuesOnExceptName(String email,String pwd){
-        enterValuesInTextBox(userEmail,email);
-        enterValuesInTextBox(userPassword,pwd);
-        enterValuesInTextBox(userPasswordConfirmation,pwd);
-    }
-
-    public void setValuesOnExceptEmail(String name,String pwd){
-        enterValuesInTextBox(userName,name);
-        enterValuesInTextBox(userPassword,pwd);
-        enterValuesInTextBox(userPasswordConfirmation,pwd);
-    }
 
     public void clickSubmitButton(){
         submitButton.click();
@@ -99,6 +84,33 @@ public class NewUserPage {
         return this.passwordRequiredError.getText();
     }
 
+    public String getErrorMessageByType(String type){
+        String errorMessage = "";
+        if (type.equals("name")){
+            errorMessage = getUserNameErrorMessage();
+        } else if (type.equals("email")){
+            errorMessage = getEmailErrorMessage();
+        } else if (type.equals("password confirmation")){
+            errorMessage = getPassworNotSameErrorMessage();
+        }else if (type.equals("password")){
+            errorMessage = getPasswordRequiredErrorMessage();
+        }
+
+        return errorMessage;
+    }
+
+    public void  setValuesOnFormExceptType(String one,String two,String type){
+
+        if (type.equals("password")){
+            setValuesOnExceptPassword(one,two);
+        }else if (type.equals("name")){
+            setValuesOnExceptName(one,two);
+        }else if (type.equals("email")){
+            setValuesOnExceptEmail(one,two);
+        }
+
+    }
+
     private void enterValuesInTextBox(WebElement element,String value){
         if(value!=null){
             element.clear();
@@ -106,6 +118,22 @@ public class NewUserPage {
         }
 
 
+    }
+
+    private void setValuesOnExceptPassword(String name,String email){
+        enterValuesInTextBox(userName,name);
+        enterValuesInTextBox(userEmail,email);
+    }
+    private void setValuesOnExceptName(String email,String pwd){
+        enterValuesInTextBox(userEmail,email);
+        enterValuesInTextBox(userPassword,pwd);
+        enterValuesInTextBox(userPasswordConfirmation,pwd);
+    }
+
+    private void setValuesOnExceptEmail(String name,String pwd){
+        enterValuesInTextBox(userName,name);
+        enterValuesInTextBox(userPassword,pwd);
+        enterValuesInTextBox(userPasswordConfirmation,pwd);
     }
 
 

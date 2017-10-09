@@ -30,8 +30,8 @@ Feature: Create New User
     Then I Should get email error message Must be unique
     Examples:
       |name |email |password|cnfpassword|
-      |adasd|adasd@mail.com|123|123|
-      |bcd|bcd@mail.com|234|234|
+      |keffi|keffi@mail.com|123|123|
+      |laks|laks@mail.com|234|234|
 
   @NewUser-003
   Scenario Outline: Test New User url with invalid email
@@ -41,8 +41,8 @@ Feature: Create New User
     Then I Should get email error message Invalid email address
     Examples:
       |name |email |password|cnfpassword|
-      |adasd|adasd@mail|123|123|
-      |keffi|@keffi|456 |456|
+      |bcde|bcde@mail|123|123|
+      |a123|@keffi|456 |456|
 
   @NewUser-004
   Scenario Outline: Test New User URl Password confirmation
@@ -52,8 +52,8 @@ Feature: Create New User
     Then I Should get password confirmation error message passwords are not the same
     Examples:
       |name |email |password|cnfpassword|
-      |adasd|adasd@mail.com|123|12345|
-      |keffi|bcd@mail.com|456 |456123|
+      |bcde|bcde@mail.com|123|12345|
+      |a123|a123@mail.com|456 |456123|
 
   @NewUser-005
   Scenario Outline: Test New User URl for compulsory Password
@@ -63,8 +63,8 @@ Feature: Create New User
     Then I Should get password error message Required
     Examples:
       |name |email |
-      |adasd|adasd@mail.com|
-      |keffi|bcd@mail.com|
+      |bcde|bcde@mail.com|
+      |bcde|a123@mail.com|
 
   @NewUser-006
   Scenario Outline: Test New User Url for Compulsory user Name
@@ -75,8 +75,8 @@ Feature: Create New User
 
     Examples:
       |email |password |
-      |adasd@mail.com|123|
-      |adasd@mail.com|123|
+      |bcde@mail.com|123|
+      |a123@mail.com|123|
 
   @NewUser-007
   Scenario Outline: Test New User Url for Compulsory user email
@@ -87,8 +87,8 @@ Feature: Create New User
 
     Examples:
       |name |password |
-      |adasd|adasd@mail.com|
-      |keffi|bcd@mail.com|
+      |bcde|adasd@mail.com|
+      |a123|bcd@mail.com|
 
 
 
