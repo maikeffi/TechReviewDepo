@@ -14,23 +14,16 @@ import static org.junit.Assert.*;
 
 public class NewUserSteps implements En  {
 
-
-
-
     private NewUserPage newUserPage;
     private AllUserPage allUserPage;
 
     public NewUserSteps() {
 
-
-
         Given("^I open (\\S+) browser$", (String browser) -> {
-
             if (browser.equals("chrome")){
                 newUserPage = new NewUserPage(manager.getCrDriver().getDriver());
                 allUserPage = new AllUserPage(manager.getCrDriver().getDriver());
             }
-
         });
 
         When("^I Clean up Test Data$", () -> {
@@ -59,8 +52,6 @@ public class NewUserSteps implements En  {
             assertEquals("Title of page","All User", allUserPage.getNewUserPageTitle());
         });
 
-
-
         Then("^I Should get (.*) error message (.*)$", (String type ,String expErrorMessage) -> {
             String errorMessage = newUserPage.getErrorMessageByType(type);
             assertEquals("Error Message ",errorMessage, expErrorMessage);
@@ -82,9 +73,5 @@ public class NewUserSteps implements En  {
             }
             assertTrue("Check if two objects are equal",isMatching);
         });
-
-
-
-
     }
 }

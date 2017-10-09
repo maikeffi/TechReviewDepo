@@ -72,7 +72,6 @@ Feature: Create New User
     And I enter values <email>,<password> except name
     And I submit the form
     Then I Should get name error message Required
-
     Examples:
       |email |password |
       |bcde@mail.com|123|
@@ -84,7 +83,6 @@ Feature: Create New User
     And I enter values <name>,<password> except email
     And I submit the form
     Then I Should get email error message Required
-
     Examples:
       |name |password |
       |bcde|adasd@mail.com|

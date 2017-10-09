@@ -40,8 +40,6 @@ public class NewUserPage {
     @FindBy(xpath = "//button[@type='submit']")
     public WebElement submitButton;
 
-
-
     public NewUserPage(WebDriver webDriver) {
         this.webDriver = webDriver;
         PageFactory.initElements(webDriver,this);
