@@ -1,22 +1,28 @@
 package com.maikeffi.deposit.interview.automate.manager;
 
-import com.maikeffi.deposit.interview.automate.core.CHDriver;
-import com.maikeffi.deposit.interview.automate.core.FFDriver;
-import com.maikeffi.deposit.interview.automate.utils.GetItem;
 import com.maikeffi.deposit.interview.automate.utils.UserClient;
 import feign.Feign;
-import feign.Logger;
 import feign.gson.GsonDecoder;
 import feign.gson.GsonEncoder;
 import feign.okhttp.OkHttpClient;
-import feign.slf4j.Slf4jLogger;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 
 public class Manager {
     private static Manager manager;
-    private FFDriver ffDriver;
-    private CHDriver chDriver;
-    private GetItem proItem;
+    private WebDriver driver;
     private UserClient userClient;
+    private Properties properties;
+
+    public Manager() {
+        properties = new Properties();
+        loadProperties();
+    }
 
     public static Manager getManager() {
         if (manager == null){
@@ -25,43 +31,48 @@ public class Manager {
         return manager;
     }
 
-    public FFDriver getFfDriver() {
-
-        if (ffDriver == null){
-            ffDriver = new FFDriver();
+    public WebDriver getDriverForBrowser(String browser) {
+        if (driver != null) {
+            return driver;
         }
-        return ffDriver;
+        switch (browser.toLowerCase()){
+            case "chrome":
+                driver = new ChromeDriver();
+                break;
+            case "firefox":
+                driver = new FirefoxDriver();
+                break;
+            default:
+                driver = new ChromeDriver();
+                break;
+        }
+        return driver;
     }
 
-    public CHDriver getCrDriver() {
-
-        if (chDriver == null){
-            chDriver = new CHDriver();
-        }
-        return chDriver;
+    public String getProperty(String propertyName) {
+        return properties.getProperty(propertyName);
     }
 
-    public GetItem getProItem() {
-        if (proItem==null){
-            proItem = new GetItem();
+    private void loadProperties() {
+        ClassLoader classLoader = getClass().getClassLoader();
+        InputStream inputStream = classLoader.getResourceAsStream("elements.properties");
+        try {
+            properties.load(inputStream);
+        } catch (IOException e) {
+            System.out.println("Properties cannot be loaded.");
+            e.printStackTrace();
         }
-
-        return proItem;
     }
 
-
-    public void kill(){
-        if (chDriver !=null){
-            chDriver.dismiss();
-        }else if (ffDriver != null){
-            ffDriver.dismiss();
+    public void quitBrowser() {
+        if (driver != null) {
+            driver.quit();
         }
-
     }
 
     public UserClient getUserClient() {
         if (userClient == null){
-            userClient = createClient(UserClient.class,getManager().getProItem().getItemFromProp("baseUrl"));
+            userClient = createClient(UserClient.class, getManager().getProperty("baseUrl"));
         }
         return userClient;
     }

@@ -5,7 +5,6 @@ import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
 import org.apache.commons.lang3.SystemUtils;
 import org.junit.AfterClass;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 
@@ -21,20 +20,32 @@ public class PortalTest {
 
     @BeforeClass
     public static void setUp(){
-        String browser = manager.getProItem().getItemFromProp("webBrowser");
+        String browser = manager.getProperty("webBrowser");
         manager.getUserClient().deleteAll();
-        if (browser.equals("chrome") && SystemUtils.IS_OS_WINDOWS){
-            System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir")+manager.getProItem().getItemFromProp("chromeDriverPathWindows"));
-        }else if (browser.equals("chrome") && SystemUtils.IS_OS_LINUX) {
-            System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir")+manager.getProItem().getItemFromProp("chromeDriverPathLinux"));
-        }else if (browser.equals("chrome") && SystemUtils.IS_OS_MAC_OSX){
-            System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir")+manager.getProItem().getItemFromProp("chromeDriverPathMac"));
+        if (browser.equals("chrome")) {
+            setChromeDriverPath();
         }
+    }
+
+    private static void setChromeDriverPath() {
+        if (SystemUtils.IS_OS_MAC_OSX) {
+            setDriverPath("webdriver.chrome.driver","chromeDriverPathMac");
+        } else if (SystemUtils.IS_OS_LINUX) {
+            setDriverPath("webdriver.chrome.driver","chromeDriverPathLinux");
+        } else if (SystemUtils.IS_OS_WINDOWS) {
+            setDriverPath("webdriver.chrome.driver","chromeDriverPathWindows");
+        }
+    }
+
+    private static String setDriverPath(String basePropertyName, String driverPathProperties) {
+        String propertyValue = System.getProperty("user.dir") + manager.getProperty(driverPathProperties);
+        System.setProperty(basePropertyName, propertyValue);
+        return propertyValue;
     }
 
     @AfterClass
     public static void tearDown(){
-        manager.kill();
+        manager.quitBrowser();
     }
 
 

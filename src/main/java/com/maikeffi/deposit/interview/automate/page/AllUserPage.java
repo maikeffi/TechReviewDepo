@@ -7,31 +7,8 @@ import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
 
-public class AllUserPage {
-
-    WebDriver webDriver;
-
-    @FindBy(id = "users")
-    public WebElement usersTable;
-
-    @FindBy(xpath = "//table[@id='users']/tbody/tr")
-    public List<WebElement> userRows;
-
-    @FindBy(xpath = "//table[@id='users']/tbody/tr/td")
-    public WebElement noUserRow;
-
-
+public class AllUserPage extends AbstractPageObject {
     public AllUserPage(WebDriver webDriver) {
-        this.webDriver = webDriver;
-        PageFactory.initElements(webDriver,this);
-    }
-    public String getNewUserPageTitle(){
-        return this.webDriver.getTitle();
-    }
-    public int getNumberOfRowCounts(){
-        return this.userRows.size();
-    }
-    public String getNoUserText(){
-        return noUserRow.getText();
+        super(webDriver, "getAllUsersUrl");
     }
 }

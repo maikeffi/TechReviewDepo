@@ -9,9 +9,7 @@ import org.openqa.selenium.support.PageFactory;
 import java.util.List;
 
 
-public class NewUserPage {
-
-    WebDriver webDriver;
+public class NewUserPage extends AbstractPageObject {
 
     @FindBy(id="name")
     public WebElement userName;
@@ -41,12 +39,7 @@ public class NewUserPage {
     public WebElement submitButton;
 
     public NewUserPage(WebDriver webDriver) {
-        this.webDriver = webDriver;
-        PageFactory.initElements(webDriver,this);
-    }
-
-    public void navigateNewUserUrl(String url){
-        this.webDriver.get(url);
+        super(webDriver, "newUserUrl");
     }
 
     public String getNewUserPageTitle(){

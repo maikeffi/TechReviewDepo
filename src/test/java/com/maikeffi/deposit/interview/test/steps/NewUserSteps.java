@@ -5,6 +5,7 @@ import com.maikeffi.deposit.interview.automate.model.UserForm;
 import com.maikeffi.deposit.interview.automate.page.AllUserPage;
 import com.maikeffi.deposit.interview.automate.page.NewUserPage;
 import cucumber.api.java8.En;
+import org.openqa.selenium.WebDriver;
 
 import java.util.List;
 
@@ -20,10 +21,9 @@ public class NewUserSteps implements En  {
     public NewUserSteps() {
 
         Given("^I open (\\S+) browser$", (String browser) -> {
-            if (browser.equals("chrome")){
-                newUserPage = new NewUserPage(manager.getCrDriver().getDriver());
-                allUserPage = new AllUserPage(manager.getCrDriver().getDriver());
-            }
+            WebDriver driver = manager.getDriverForBrowser(browser);
+            newUserPage = new NewUserPage(driver);
+            allUserPage = new AllUserPage(driver);
         });
 
         When("^I Clean up Test Data$", () -> {
@@ -31,8 +31,7 @@ public class NewUserSteps implements En  {
         });
 
         When("^I enter Url for New User in the browser$", () -> {
-            String url = manager.getProItem().getItemFromProp("newUserUrl");
-            newUserPage.navigateNewUserUrl(url);
+            newUserPage.visitPage();
         });
 
         When("^I enter values (\\S+),(\\S+),(\\S+) and (\\S+)$", (String name,String email,String pwd, String cnfPwd) -> {
@@ -49,7 +48,7 @@ public class NewUserSteps implements En  {
         });
 
         Then("^All Users Page Should Open$", () -> {
-            assertEquals("Title of page","All User", allUserPage.getNewUserPageTitle());
+            assertEquals("Title of page","All User", allUserPage.getPageTitle());
         });
 
         Then("^I Should get (.*) error message (.*)$", (String type ,String expErrorMessage) -> {
